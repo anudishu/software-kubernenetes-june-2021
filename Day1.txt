@@ -1,0 +1,183 @@
+Rajesh Kumar
+======================
+
+Start: 9:00 AM
+End: 6:00 PM (5:30 - 6:00 QA Session)
+--------------------
+Lunch - 1:00 - 2:00
+BREAK -
+	20 mins
+	11:	AM
+	4: 	PM
+================================================
+Demo - AWS + Azure
+Lab - U have it.
+================================================
+Pre -> Docker
+================================================
+What is Docker?
+---------------------------------
+	A PLATFORM
+	---------------
+	Managing Container(S)
+	-------------------
+	Create + RUN + Delete
+------------------------------------------
+What is Container
+	iS YOUR APP.
+	IT has their own Resources run independently
+			 ---------
+			ROOT FILE	- Docker image
+			PID 
+			NET
+			USER
+
+
+OS
+	Kernal
+				CREATE
+				1 R FS
+				1 NET
+				1 PID
+				X USER
+				
+
+FILE SYSTEM
+------------------------------
+BOOT FS --> ROOT FS --> USER FS
+		    ---> APP FS
+
+
+=================================================================
+
+
+Human -> Docker Client -> Docker Server -> ContainerD --> Kernal
+							- Create - Start - Stop - remove
+
+       ======================================
+			docker engine
+
+
+			Create
+				Create One nET
+				Create one USER
+				Create one PID
+
+				Create one MOUNT(ROOTFS+APP) FROM Docker Image
+				
+				ATTACH THIS NET PID N RFS to THAT USER === 1 CONTAINER 
+VM Image
+==================
+BOOT FS + ROOT FS + USER + APP + APP + APP
+--KERNAL
+
+Docker Image
+--------------------
+ROOT FS + USER FS  + APP FS  + APP FS + APP FS 
+
+
+=============================================================
+Step - 1 - Install Docker Engine
+Step - 2 - Get an Image
+Step - 3- FROm - hub.docker.com
+Step 4 - RUN AN IMAGE
+==============================================================================
+BREAK - 20 mins.
+===============================================================================================
+
+K8s
+----------------------
+Master(S)
+		
+ - API Server		POD -> Container -> Docker Image -> Google Registry
+ - ETCD			POD -> Container -> Docker Image -> Google Registry
+ - Controller mgmr	POD -> Container -> Docker Image -> Google Registry
+ - Schedular		POD -> Container -> Docker Image -> Google Registry
+
+- Kubelet
+- Docker
+- Kube Proxy		POD -> Container -> Docker Image -> Google Registry
+- kubectl
+- kubeadm init
+
+Worker(S)
+- Kubelet
+- Docker
+- Kube Proxy		POD -> Container -> Docker Image -> Google Registry
+- kubectl
+- kubeadm join 
+
+Workstation
+- kubectl
+- JSON YAML(Deployment package)
+
+==================================================================
+Master
+- 52.146.89.226 WHITE SCREEN
+azureuser
+
+Worker 
+- 52.146.91.218 BLACK SCREEN
+azureuser
+
+https://www.devopsschool.com/blog/setting-up-kubernetes-clusters-using-kubeadm-manual-way-in-rhel-7-centos7/
+
+Error & Sol
+https://www.devopsschool.com/blog/kubernetes-error-kubeadm-related-errors-and-solutions/
+
+
+
+
+
+
+
+
+
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.0.0.4:6443 --token 92ed5w.4w7grtvzakib51j8 \
+        --discovery-token-ca-cert-hash sha256:4a60a3d23e68cd17fec21d1ba1d80177782adc5dec71766408c96661c1fe5022
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
