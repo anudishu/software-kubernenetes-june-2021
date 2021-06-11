@@ -192,6 +192,119 @@ spec:
   finalizers:
   - kubernetes
 
+============================================================
+============================================================
+POD
+
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-pod
+spec:
+  containers:
+  - name: hello-ctr
+    image: nginx
+    ports:
+    - containerPort: 80
+
+
+
+ 92  vi pod.yaml
+   93  kubectl create -f pod.yaml
+   94  kubectl create -f pod.yaml -n=rajesh
+   95  kubectl create -f pod.yaml
+   96  kubectl get pods
+   97  kubectl get pods -n=rajesh
+   98  kubectl get pods
+   99  kubectl get pods --all-namespaces
+  100  clear
+  101  kubectl get pods -o wide
+  102  kubectl get pods -h
+  103  clear
+  104  kubectl get pods -o wide --show-labels
+  105  kubectl edit pod hello-pod
+  106  kubectl get pods -o wide --show-labels
+  107  vi pod.yaml
+  108  kubectl apply -f pod.yaml
+  109  kubectl get pods -o wide --show-labels
+  110  kubectl delete -f pod.yaml
+  111  kubectl delete hello-pod -n=rajesh
+  112  kubectl delete pod hello-pod -n=rajesh
+
+
+How to use pods?
+========================================
+How to access a pod from outside?
+
+ 116  kubectl apply -f pod.yaml
+  117  kubectl get pod -o wide
+  118  curl http://10.44.0.1
+  119  clear
+  120  kubectl
+  121  kubectl port-forward -h
+  122  clear
+  123  kubectl get pod -o wide
+  124  kubectl port-forward --address 0.0.0.0 pod/hello-pod 8888:80
+
+kubectl port-forward --address 0.0.0.0 pod/hello-pod 8888:80
+
+How to get inside a container of pod?
+
+  124  kubectl port-forward --address 0.0.0.0 pod/hello-pod 8888:80
+  125  history
+  126  clear
+  127  kubectl get pods
+  128* kubectl
+  129  kubectl attach hello-pod
+  130  clear
+  131  kubectl logs hello-pod
+  132  cler
+  133  clear
+
+-h options
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
