@@ -442,6 +442,102 @@ kubectl delete deploy my-dep -n=rajesh
 
 
 
+kubectl create service clusterip my-cs --tcp=5678:80
+
+
+
+ 263  ls
+  264  cp pod.yaml pod1.yaml
+  265  cp pod.yaml pod2.yaml
+  266  clear
+  267  ls
+  268  vi pod1.yaml
+  269  vi pod2.yaml
+  270  kubectl apply -f pod1.yaml
+  271  kubectl apply -f pod2.yaml
+  272  kubectl get pods
+  273  kubectl delete deploy my-dep
+  274  clear
+  275  kubectl delete deploy my-dep
+  276  kubectl get pods
+  277  clear
+  278  ls
+  279  kubectl get pods
+  280  kubectl get pods --show-lables
+  281  kubectl get pods --show-labels
+  282  kubectl create svc -h
+  283  kubectl create svc clusterip -h
+  284  clear
+  285  kubectl get vsc
+  286  kubectl get svc
+  287  clear
+  288  kubectl create service clusterip my-cs --tcp=5678:80
+  289  kubectl get svc
+  290  kubectl get svc --show-labels
+  291  kubectl get pods --show-labels
+  292  kubectl edit svc my-cs
+  293  kubectl get pods --show-labels
+  294  kubectl get svc --show-labels
+  295  kubectl describe svc my-cs
+  296  kubectl edit svc my-cs
+  297  kubectl describe svc my-cs
+  298  kubectl get svc
+  299  curl http://10.100.112.89
+  300  curl http://10.100.112.89:5678
+  301  clear
+  302  watch  http://10.100.112.89:5678
+  303  watch curlhttp://10.100.112.89:5678
+  304  watch curl http://10.100.112.89:5678
+=================================================================
+
+Service TYPE
+====================================
+ClustorIP
+	Create a SVC and This get IP address from POD Netowkr - AKA ClustorIP
+
+NodePort
+	Create a SVC and This get IP address from POD Netowkr - AKA ClustorIP
+	Service Get Exposed at EACH NODE as well.
+
+LoadBalancer
+	Create a SVC and This get IP address from POD Netowkr - AKA ClustorIP
+	Service Get Exposed at EACH NODE as well.
+	Create a CLOUD EXT LB &&&& ADD Each Node of the CLUSTOR to the EXT LB 
+
+
+kubectl create service nodeport my-np --tcp=5678:80
+kubectl create service loadbalancer my-lb --tcp=5678:80
+
+
+
+
+
+
+
+
+
+kubectl create deployment my-dep --image=scmgalaxy/nginx-devopsschoolv1 --replicas=10
+
+kubectl expose deploy my-dep --port=80 --target-port=80 --type=NodePort
+
+  199  clear
+  200  kubectl scale -h
+  201  clear
+  202  ls
+  203  kubectl create deployment my-dep --image=scmgalaxy/nginx-devopsschoolv1 --replicas=10
+  204  kubectl expose -h
+  205  clear
+  206  kubectl expose deploy my-dep --port=80 --target-port=80 --type=NodePort
+  207  kubectl get svc
+  208  kubectl describe svc my-dep
+  209  history
+  210  clear
+  211  kubectl describe svc my-dep
+
+
+
+
+
 
 
 
