@@ -265,6 +265,64 @@ How to get inside a container of pod?
   133  clear
 
 -h options
+========================================================
+How to get multiple POds?
+-----------------------------------
+Replication Controller
+ReplicSets
+Deployment
+---------------ASSIGNMENT---------
+Statefulsets
+DeamonSets
+-----------------------------------
+Replication Controller ==> ReplicSets
+
+Replication 	- 1 POD to MANY
+Controller	- Making sure UR DESIRE#POD === ACTUAL#PODS
+
+
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: replicationcontroller-example
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+
+
+kubectl scale --replicas=8 rc/replicationcontroller-example
+
+
+ 133  kubectl describe pod replicationcontroller-example-5phcz
+  134  clear
+  135  kubectl get pods
+  136  kubectl describe pod hello-pod
+  137  q!
+  138  kubectl get pods
+  139  clear
+  140  kubectl get pods
+  141  kubectl delete pod replicationcontroller-example-5phcz replicationcontroller-example-67fjf replicationcontroller-example-bmcnf replicationcontroller-example-jrxql replicationcontroller-example-lxsmr replicationcontroller-example-m95l6
+  142  kubectl get pods
+  143  clear
+  144  kubectl get pods
+
+
+
+
+
+
+
+
+
 
 
 
