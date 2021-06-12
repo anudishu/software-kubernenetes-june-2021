@@ -1,0 +1,51 @@
+Master
+- 52.146.89.226 WHITE SCREEN
+azureuser
+
+Worker 
+- 52.146.91.218 BLACK SCREEN
+azureusers
+===========================================
+LB
+================================
+Network
+	Services
+Application
+	ingress	
+		Ingress COntroller - A Software of APP LB
+		ingress - Sets of rules
+
+			devopsschool.com	- default serv
+			PATH
+				devopsschool.com/red --> RED service
+				devopsschool.com/blue --> Blue service
+			NAME
+				www.devopsschool.com	- default serv
+				red.devopsschool.com  --> RED serv
+				blue.devopsschool.com  --> RED serv
+			TLS
+
+https://www.devopsschool.com/blog/kubernetes-ingress-tutorials-with-examples-and-lab-using-nodeport/
+
+INGRESSNODEPORTIP=$(kubectl get ingresses ingress-single -o jsonpath='{ .status.loadBalancer.ingress[].ip }')
+NODEPORT=$(kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath='{ .spec.ports[?(@.name=="http")].nodePort }')
+echo $INGRESSNODEPORTIP:$NODEPORT
+curl http://$INGRESSNODEPORTIP:$NODEPORT
+
+kubectl create deployment hello-world-service-blue --image=gcr.io/google-samples/hello-app:1.0
+kubectl create deployment hello-world-service-red  --image=gcr.io/google-samples/hello-app:1.0
+
+kubectl expose deployment hello-world-service-blue --port=4343 --target-port=8080 --type=ClusterIP
+kubectl expose deployment hello-world-service-red  --port=4242 --target-port=8080 --type=ClusterIP
+
+curl http://$INGRESSNODEPORTIP:$NODEPORT/red  --header 'Host: path.example.com'
+curl http://$INGRESSNODEPORTIP:$NODEPORT/blue --header 'Host: path.example.com'
+
+
+
+
+Storage
+
+Security
+
+Tools
