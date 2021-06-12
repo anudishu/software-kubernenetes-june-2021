@@ -40,12 +40,58 @@ kubectl expose deployment hello-world-service-red  --port=4242 --target-port=808
 
 curl http://$INGRESSNODEPORTIP:$NODEPORT/red  --header 'Host: path.example.com'
 curl http://$INGRESSNODEPORTIP:$NODEPORT/blue --header 'Host: path.example.com'
-
-
-
-
+============================================================================================
 Storage
+============================================
+Q - How to have data pers in POD?
+======================================
+Volume(S)
+	ATTACH TO POD
+		MOUNT to the CONTAINERS
+========================================
+Volume would come from where?
+- STORAGE TECH
+	BLOCK 			e.g HOST DISK - EBS - Azure Disk
+	Object 			e.g s3 - Azure Blob
+	NETWORK STORAGE		e.g nfs - efs - Azure file 
+	
+===================================================================
+Q1 - How to make these Storage Available for K8s Clustor?
+- STATIC - Manual Way - Storage is available in ADVANCE before using
+		Manual -> PV(PersistentVolume)
+
+- DYNAMIC - Automated Way - Storage is created when request are made
+		StorageClass -> PV(PersistentVolume)
+
+
+Q2 - How to attach to POD
+		Claim - PVC(PersistentVolumeClaim)
+
+		Use inside a container
+========================================================
+Static
+	PV 			-> PVC 
+		- HOSTPATH
+
+https://www.devopsschool.com/blog/persistentvolume-persistentvolumeclaim-volumes-using-hostpath/
+https://www.devopsschool.com/blog/kubernetes-persistentvolume-and-persistentvolumeclaim-using-nfs-volume-types/
+
+https://www.devopsschool.com/blog/setup-nfs-server-and-use-inside-a-kubernetes-pods-in-rhel-centos7/
+
+
+
+
 
 Security
 
 Tools
+
+
+
+
+
+
+
+
+
+
