@@ -78,17 +78,127 @@ https://www.devopsschool.com/blog/kubernetes-persistentvolume-and-persistentvolu
 
 https://www.devopsschool.com/blog/setup-nfs-server-and-use-inside-a-kubernetes-pods-in-rhel-centos7/
 
+===================================================================================================
+===================================================================================================
+Security@Kubernetes
+	Authentication
+		How to login k8s?
+			X509 Client Certs	WORKSTATIOn - > API Server	[FOCUS]
+			Bootstrap Tokens	Joining Worker
+			OpenID Connect Tokens
+			Webhook Token Authentication
 
 
+	How X509 Client Certs works?
+	
+			
+	Authorization
+			Node
+			ABAC 
+			RBAC			[FOCUS]
+			Webhook 			
+
+How RBAC works?
+==============================================
+Role Based Access controle
 
 
-Security
+VERB
+get, list, create, update, patch, watch, delete, and deletecollection
 
-Tools
+Role
+	- Role			is APPLICABLE FOR Namesapce ACCESS
+	- Clustor Role		is APPLICABLE Clustor
+User
+	- WE
+	- Service Account
+
+Group 
+	Collection of WE and Service Account
+
+List of APIs?
+- Role			---- RoleBinding ------ USER or Group
+- ClusterRole		---- ClusterRoleBinding ------ USER or Group
+- ServiceAccount
+- WE - Can be added using CERT - CA Process
+
+Security@AWS
+	Authentication
+			IAM
+	Authorization
+			GBAC
+Security@Azure
+	Authentication
+			Active Directory
+	Authorization
+			RBAC
+
+======================================================================================
+
+Step 1 - Create a user
+==============================================================
+kubectl create namespace office
+
+openssl genrsa -out employee.key 2048
+
+openssl req -new -key employee.key -out employee.csr -subj "/CN=employee/O=bitnami"
+
+======ADMIN AT MASTER using root==================
+openssl x509 -req -in employee.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out /home/ec2-user/tecnotree/employee.crt -days 500
+
+======USER At LAPTOP==================
+kubectl config set-credentials employee --client-certificate=/home/ec2-user/tecnotree/employee.crt  --client-key=/home/ec2-user/tecnotree/employee.key
+
+kubectl config set-context employee-context --cluster=kubernetes --namespace=office --user=employee
+
+kubectl --context=employee-context get pods
+
+Step 2 - Create a Service Account
+=============================================================================
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: devopsschool
 
 
+Step 3 - Create a Role
+
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: office
+  name: role-office
+rules:
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["deployments", "replicasets", "pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"] # You can also use ["*"]
+
+Step 4 - Create a Clustor Role
+
+Step 5 - Add User to Role
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: office-role-binding
+  namespace: office
+subjects:
+- kind: User
+  name: employee
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: role-office
+  apiGroup: ""
+
+Step 6 - Add User to ClustorRole
 
 
+============================
+$ kubectl --context=employee-context run nginx --image=nginx
+$ kubectl --context=employee-context get pods
 
 
 
